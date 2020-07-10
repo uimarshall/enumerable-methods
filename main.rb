@@ -44,6 +44,13 @@ module Enumerable
     my_each { |elem| return true if yield(elem) == true }
     false
   end
+
+  def my_none?
+    return to_enum(:my_none?) unless block_given?
+
+    my_each { |elem| return false if yield(elem) == true }
+    true
+  end
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -52,7 +59,10 @@ end
 # p b
 
 friends = %w[Sharon Leo Leila Brian Arun]
+animals = %w[ant bear cat]
 
 # x = friends.my_each { |friend| friend.upcase }
-x = friends.my_any? { |friend| friend.length >= 7 }
-p x
+x = friends.my_none? { |friend| friend.length <= 2 }
+y = animals.my_none? { |word| word.length == 5 }
+z = [nil].my_none?
+p z
