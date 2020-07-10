@@ -37,6 +37,13 @@ module Enumerable
     my_each { |elem| return false if yield(elem) == false }
     true
   end
+
+  def my_any?
+    return to_enum(:my_any?) unless block_given?
+
+    my_each { |elem| return true if yield(elem) == true }
+    false
+  end
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -47,5 +54,5 @@ end
 friends = %w[Sharon Leo Leila Brian Arun]
 
 # x = friends.my_each { |friend| friend.upcase }
-x = friends.my_all? { |friend| friend.length >= 3 }
+x = friends.my_any? { |friend| friend.length >= 7 }
 p x
