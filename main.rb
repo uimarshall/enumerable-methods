@@ -9,7 +9,24 @@ module Enumerable
     end
     array
   end
+
+  def my_each_with_index
+    return to_enum(:my_each_with_index) unless block_given?
+    array = to_a
+    i = 0
+    while i < array.length
+      yield(array[i], i)
+      i += 1
+    end
+    array
+   end
 end
+
+fruits = w%[apple banana strawberry pineapple]
+
+b = fruits.my_each_with_index { |fruit, index| puts fruit if index.even? }
+p b
+
 # friends = %w[Sharon Leo Leila Brian Arun]
 
 # x = friends.my_each { |friend| friend.upcase }
