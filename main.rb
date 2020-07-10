@@ -20,14 +20,22 @@ module Enumerable
     end
     array
    end
+
+  def my_select
+    return to_enum(:my_select) unless block_given?
+    new_array = []
+    my_each{| elem | new_array.push(elem) if yield(elem) == true}
+    new_array
+   end
 end
 
-fruits = w%[apple banana strawberry pineapple]
+# fruits = w%[apple banana strawberry pineapple]
 
-b = fruits.my_each_with_index { |fruit, index| puts fruit if index.even? }
-p b
+# b = fruits.my_each_with_index { |fruit, index| puts fruit if index.even? }
+# p b
 
-# friends = %w[Sharon Leo Leila Brian Arun]
+friends = %w[Sharon Leo Leila Brian Arun]
 
 # x = friends.my_each { |friend| friend.upcase }
-# p x
+x=friends.my_select { |friend| friend == 'Brian' }
+p x
