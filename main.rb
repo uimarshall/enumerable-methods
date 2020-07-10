@@ -32,6 +32,8 @@ module Enumerable
   end
 
   def my_all?
+    return to_enum(:my_all?) unless block_given?
+
     my_each { |elem| return false if yield(elem) == false }
     true
   end
@@ -45,5 +47,5 @@ end
 friends = %w[Sharon Leo Leila Brian Arun]
 
 # x = friends.my_each { |friend| friend.upcase }
-x = friends.my_all? { |friend| friend.length >= 4 }
+x = friends.my_all? { |friend| friend.length >= 3 }
 p x
