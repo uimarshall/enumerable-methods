@@ -51,6 +51,21 @@ module Enumerable
     my_each { |elem| return false if yield(elem) == true }
     true
   end
+
+
+  def my_count(n = nil)
+    counter = 0
+    if n
+      self.my_each{|elem| counter += 1 if elem == n }
+    
+    elsif block_given?
+      self.my_each{|elem| counter += 1 if yield(elem)}
+        
+    else
+      counter = self.size 
+    end
+    counter
+  end
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -62,7 +77,17 @@ friends = %w[Sharon Leo Leila Brian Arun]
 animals = %w[ant bear cat]
 
 # x = friends.my_each { |friend| friend.upcase }
-x = friends.my_none? { |friend| friend.length >= 4 }
-y = animals.my_none? { |word| word.length == 5 }
-z = [nil].my_none?
+# x = friends.my_none? { |friend| friend.length >= 4 }
+# y = animals.my_none? { |word| word.length == 5 }
+# z = [nil].my_none?
+# p z
+
+ary = [1, 2, 4, 2]
+x=ary.my_count               #=> 4
+y=ary.my_count(1)            #=> 2
+z=ary.my_count{ |x| x%2==0 } #=> 3
+
+p x
+p y
 p z
+
