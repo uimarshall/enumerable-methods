@@ -52,16 +52,16 @@ module Enumerable
     true
   end
 
-  def my_count(n = nil)
+  def my_count(num = nil)
     counter = 0
-    if n
-      self.my_each{|elem| counter += 1 if elem == n }
-    
+    if num
+      my_each { |elem| counter += 1 if elem == num }
+
     elsif block_given?
-      self.my_each{|elem| counter += 1 if yield(elem)}
-        
+      my_each { |elem| counter += 1 if yield(elem) }
+
     else
-      counter = self.size 
+      counter = size
     end
     counter
   end
@@ -69,11 +69,10 @@ module Enumerable
   def my_map
     return to_enum(:my_map) unless block_given?
 
-    array = to_a
     new_array = []
-    my_each{ |i| new_array.push(yield(i)) }
+    my_each { |i| new_array.push(yield(i)) }
     new_array
-  end   
+  end
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -98,7 +97,6 @@ animals = %w[ant bear cat]
 # p x
 # p y
 # p z
-y = (1..4).my_map { |i| i*i }
-x = friends.my_map{ |i| i.upcase }
-puts y
-
+y = (1..4).my_map { |i| i * i }
+x = friends.my_map(&:upcase)
+puts x
