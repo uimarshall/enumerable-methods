@@ -62,7 +62,7 @@ friends = %w[Sharon Leo Leila Brian Arun]
 animals = %w[ant bear cat]
 
 # x = friends.my_each { |friend| friend.upcase }
-x = friends.my_none? { |friend| friend.length <= 2 }
+x = friends.my_none? { |friend| friend.length >= 4 }
 y = animals.my_none? { |word| word.length == 5 }
 z = [nil].my_none?
 p z
