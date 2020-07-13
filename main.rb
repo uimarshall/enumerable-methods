@@ -52,7 +52,6 @@ module Enumerable
     true
   end
 
-
   def my_count(n = nil)
     counter = 0
     if n
@@ -66,6 +65,15 @@ module Enumerable
     end
     counter
   end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+
+    array = to_a
+    new_array = []
+    my_each{ |i| new_array.push(yield(i)) }
+    new_array
+  end   
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -82,12 +90,15 @@ animals = %w[ant bear cat]
 # z = [nil].my_none?
 # p z
 
-ary = [1, 2, 4, 2]
-x=ary.my_count               #=> 4
-y=ary.my_count(1)            #=> 2
-z=ary.my_count{ |x| x%2==0 } #=> 3
+# ary = [1, 2, 4, 2]
+# x=ary.my_count               #=> 4
+# y=ary.my_count(1)            #=> 2
+# z=ary.my_count{ |x| x%2==0 } #=> 3
 
-p x
-p y
-p z
+# p x
+# p y
+# p z
+y = (1..4).my_map { |i| i*i }
+x = friends.my_map{ |i| i.upcase }
+puts y
 
