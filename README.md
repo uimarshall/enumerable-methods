@@ -41,7 +41,7 @@ This project was completed under microverse remote software development curricul
 ## 🔴 Live Demo <a name = "ldl"></a>
 
 
-[![Run on Repl.it](https://repl.it/badge/github/vanheaven-ui/my_enumerables)](https://repl.it/@vanheavenui/myenumerables-3)
+(https://repl.it/@uimarshall/My-custom-enumerable-methods#main.rb)
 
 ## 🔨 Setup <a name = "set"></a>
 
@@ -54,10 +54,6 @@ This project was completed under microverse remote software development curricul
 - run bundle init to create a Gemfile
 - add rspec gem in your Gemfile
 - run bundle install to install the gems
-
-## 🛠 Testing <a name = "testing"></a>
-
-- run bundle exec rspec
 
 ## ✒️  Authors <a name = "author"></a>
 
