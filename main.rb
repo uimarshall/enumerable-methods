@@ -73,6 +73,28 @@ module Enumerable
     my_each { |i| new_array.push(yield(i)) }
     new_array
   end
+
+  def my_inject(n = nil, symbol = nil)
+
+    if block_given?
+      acc = n
+      my_each {|i| acc = acc.nil? ? i : yield(acc, i)}
+      acc
+    elsif
+      acc == nil
+      !n.nil? && n.is_a?(Symbol) || n.is_a?(String)
+      my_each {|i| acc = acc.nil? ? i : acc.send(n, i)}
+    elsif
+      acc = n
+      !n.symbol? && n.is_a?(Symbol) || n.is_a?(String)
+      my_each {|i| acc = acc.nil? ? i : acc.send(symbol, i)}
+    end
+    acc
+  end
+
+  def multiply_els
+    my_inject {|x, y| x * y}
+  end
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -97,6 +119,16 @@ animals = %w[ant bear cat]
 # p x
 # p y
 # p z
-y = (1..4).my_map { |i| i * i }
-x = friends.my_map(&:upcase)
-puts x
+# y = (1..4).my_map { |i| i * i }
+# x = friends.my_map(&:upcase)
+my_numbers = [5, 6, 7, 8]
+x = my_numbers.my_inject(1) { |m, number| m * number }
+y = (5..10).my_inject(:*)
+# w = (5..10).my_inject(1, :*) 
+z = (5..10).multiply_els { |product, num| product * num }
+# h = multiply_els([2,4,5])
+t = my_numbers.multiply_els
+longest = %w[ cat sheep bear marshall ].my_inject do |memo, word|
+  memo.length > word.length ? memo : word
+end
+puts longest
