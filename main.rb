@@ -1,3 +1,4 @@
+
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -66,38 +67,35 @@ module Enumerable
     counter
   end
 
-  def my_map(proc=nil)
+  def my_map(proc = nil)
     return to_enum(:my_map) unless block_given?
 
     new_array = []
     if proc
       my_each { |i| new_array.push(proc.call(i)) }
     else
-       my_each { |i| new_array.push(yield(i)) }
-    end   
+      my_each { |i| new_array.push(yield(i)) }
+    end
     new_array
   end
 
-  def my_inject(n = nil, symbol = nil)
-
+  def my_inject(num = nil, symbol = nil)
     if block_given?
-      acc = n
-      my_each {|i| acc = acc.nil? ? i : yield(acc, i)}
+      acc = num
+      my_each { |i| acc = acc.nil? ? i : yield(acc, i) }
       acc
-    elsif
-      acc == nil
-      !n.nil? && n.is_a?(Symbol) || n.is_a?(String)
-      my_each {|i| acc = acc.nil? ? i : acc.send(n, i)}
-    elsif
-      acc = n
-      !n.symbol? && n.is_a?(Symbol) || n.is_a?(String)
-      my_each {|i| acc = acc.nil? ? i : acc.send(symbol, i)}
+    elsif acc.nil?
+      !num.nil? && num.is_a?(Symbol) || num.is_a?(String)
+      my_each { |i| acc = acc.nil? ? i : acc.send(num, i) }
+    elsif (acc = num)
+      !num.symbol? && num.is_a?(Symbol) || num.is_a?(String)
+      my_each { |i| acc = acc.nil? ? i : acc.send(symbol, i) }
     end
     acc
   end
 
   def multiply_els
-    my_inject {|x, y| x * y}
+    my_inject { |x, y| x * y }
   end
 end
 
@@ -123,7 +121,7 @@ end
 # p x
 # p y
 # p z
-y = (1..4).my_map { |i| i * i }
+# y = (1..4).my_map { |i| i * i }
 # my_proc = proc { |i| i * i }
 my_proc = proc { |friend| friend.upcase }
 h = %w[Sharon Leo Leila Brian Arun].my_map(&my_proc)
@@ -131,16 +129,12 @@ p h
 # x = friends.my_map(&:upcase)
 # my_numbers = [5, 6, 7, 8]
 # x = my_numbers.my_inject(1) { |m, number| m * number }
-# y = (5..10).my_inject(:*)
-# w = (5..10).my_inject(1, :*) 
+y = (5..10).my_inject(:*)
+# w = (5..10).my_inject(1, :*)
 # z = (5..10).multiply_els { |product, num| product * num }
 # h = multiply_els([2,4,5])
 # t = my_numbers.multiply_els
 # longest = %w[ cat sheep bear marshall ].my_inject do |memo, word|
 #   memo.length > word.length ? memo : word
 # end
-# puts longest
-
-
-
-
+puts y
