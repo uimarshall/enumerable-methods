@@ -1,12 +1,11 @@
 # My Custom Enumerable Methods
-  
+
 [![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/uimarshall/enumerable-methods/tree/feature/feature_custom_enumerable_methods)
 [![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/uimarshall/enumerable-methods/issues)
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)](https://github.com/uimarshall/enumerable-methods/pulls)
 [![View Code](https://img.shields.io/badge/Github-Author-black)](https://github.com/uimarshall)
 [![Twitter Follow](https://img.shields.io/badge/Twitter-Marshall-%231DA1F2)](https://twitter.com/uimarshall)
 [![LinkedIn follow](https://img.shields.io/badge/LinkedIn-Marshall-%232867B2)](https://www.linkedin.com/in/marshall-akpan-19745526/)
-
 
 ## Content
 
@@ -18,9 +17,9 @@
 <a href="#ldl">Live Demo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#author">Author</a>
 
-
 ## About <a name = "about"></a>
-This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods. 
+
+This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods.
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
@@ -28,7 +27,7 @@ This project was completed under microverse remote software development curricul
 <li>my_each_with_index</li>
 <li>my_select</li>
 <li>my_all?</li>
-<li>my_any</li>
+<li>my_any?</li>
 <li>my_none?</li>
 <li>my_count</li>
 <li>my_map</li>
@@ -39,7 +38,6 @@ This project was completed under microverse remote software development curricul
 - Ruby
 
 ## 🔴 Live Demo <a name = "ldl"></a>
-
 
 [![Run on Repl.it](https://repl.it/badge/github/uimarshall/enumerable-methods)](https://repl.it/@uimarshall/enumerable-methods)
 
@@ -52,10 +50,9 @@ This project was completed under microverse remote software development curricul
 
 - run npm install to install the dependencies for the project
 - run bundle init to create a Gemfile
-- add rspec gem in your Gemfile
 - run bundle install to install the gems
 
-## ✒️  Authors <a name = "author"></a>
+## ✒️ Authors <a name = "author"></a>
 
 👤 **Marshall Akpan**
 
@@ -75,10 +72,12 @@ Contributions, issues and feature requests are welcome!
 
 Feel free to check the [issues page](https://github.com/uimarshall/enumerable-methods/issues).
 
-
 ## 👍 Show your support
 
 Give a ⭐️ if you like this project!
 
 ## :clap: Acknowledgements
-[Ruby enumerable documentation here:](https://ruby-doc.org/core-2.7.1/Enumerable.html)<br>
+
+- Microverse
+- The Odin Project
+  [Ruby enumerable documentation here:](https://ruby-doc.org/core-2.7.1/Enumerable.html)<br>

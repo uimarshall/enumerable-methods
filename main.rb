@@ -1,4 +1,4 @@
-
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -138,3 +138,4 @@ y = (5..10).my_inject(:*)
 #   memo.length > word.length ? memo : word
 # end
 puts y
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
