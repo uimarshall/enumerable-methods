@@ -41,7 +41,7 @@ This project was completed under microverse remote software development curricul
 ## 🔴 Live Demo <a name = "ldl"></a>
 
 
-(https://repl.it/@uimarshall/My-custom-enumerable-methods#main.rb)
+[![Run on Repl.it]](https://repl.it/@uimarshall/My-custom-enumerable-methods#main.rb)
 
 ## 🔨 Setup <a name = "set"></a>
 
