@@ -80,4 +80,5 @@ Give a ⭐️ if you like this project!
 
 - Microverse
 - The Odin Project
-  [Ruby enumerable documentation here:](https://ruby-doc.org/core-2.7.1/Enumerable.html)<br>
+
+[Ruby enumerable documentation here:](https://ruby-doc.org/core-2.7.1/Enumerable.html)<br>
