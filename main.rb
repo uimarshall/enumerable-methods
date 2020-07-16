@@ -46,10 +46,12 @@ module Enumerable
     false
   end
 
-  def my_none?
-    return to_enum(:my_none?) unless block_given?
-
-    my_each { |elem| return false if yield(elem) == true }
+  def my_none?(arg = nil)
+    if arg == nil
+      true
+    elsif arg.is_a?
+      my_each { |elem| return false if yield(elem) }
+    end
     true
   end
 
@@ -124,8 +126,8 @@ end
 # y = (1..4).my_map { |i| i * i }
 # my_proc = proc { |i| i * i }
 my_proc = proc { |friend| friend.upcase }
-h = %w[Sharon Leo Leila Brian Arun].my_map(&my_proc)
-p h
+# h = %w[Sharon Leo Leila Brian Arun].my_map(&my_proc)
+# p h
 # x = friends.my_map(&:upcase)
 # my_numbers = [5, 6, 7, 8]
 # x = my_numbers.my_inject(1) { |m, number| m * number }
@@ -137,5 +139,6 @@ y = (5..10).my_inject(:*)
 # longest = %w[ cat sheep bear marshall ].my_inject do |memo, word|
 #   memo.length > word.length ? memo : word
 # end
-puts y
+z = %w{ant bear cat}.none? { |word| word.length == 5 }
+puts z
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
