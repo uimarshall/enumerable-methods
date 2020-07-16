@@ -39,18 +39,24 @@ module Enumerable
     true
   end
 
-  def my_any?
-    return to_enum(:my_any?) unless block_given?
+  def my_any?(*arg)
 
-    my_each { |elem| return true if yield(elem) == true }
-    false
+    if arg.empty?
+      if block_given?
+        my_each { |elem| return true if yield(elem) }
+      else
+        my_each { |elem| return true unless elem.nil? || elem == false } 
+      end
+    end
+      false
   end
 
   def my_none?(arg = nil)
+
     if arg == nil
       true
     elsif arg.is_a?
-      my_each { |elem| return false if yield(elem) }
+      my_each { |elem| return false if yield(elem) } 
     end
     true
   end
@@ -107,13 +113,13 @@ end
 # p b
 
 # friends = %w[Sharon Leo Leila Brian Arun]
-# animals = %w[ant bear cat]
+animals = ["ant", "bear", "cat", 2]
 
 # x = friends.my_each { |friend| friend.upcase }
 # x = friends.my_none? { |friend| friend.length >= 4 }
-# y = animals.my_none? { |word| word.length == 5 }
+y = animals.any?(Numeric)
 # z = [nil].my_none?
-# p z
+p y
 
 # ary = [1, 2, 4, 2]
 # x=ary.my_count               #=> 4
@@ -125,13 +131,13 @@ end
 # p z
 # y = (1..4).my_map { |i| i * i }
 # my_proc = proc { |i| i * i }
-my_proc = proc { |friend| friend.upcase }
+# my_proc = proc { |friend| friend.upcase }
 # h = %w[Sharon Leo Leila Brian Arun].my_map(&my_proc)
 # p h
 # x = friends.my_map(&:upcase)
 # my_numbers = [5, 6, 7, 8]
 # x = my_numbers.my_inject(1) { |m, number| m * number }
-y = (5..10).my_inject(:*)
+# y = (5..10).my_inject(:*)
 # w = (5..10).my_inject(1, :*)
 # z = (5..10).multiply_els { |product, num| product * num }
 # h = multiply_els([2,4,5])
@@ -139,6 +145,7 @@ y = (5..10).my_inject(:*)
 # longest = %w[ cat sheep bear marshall ].my_inject do |memo, word|
 #   memo.length > word.length ? memo : word
 # end
-z = %w{ant bear cat}.none? { |word| word.length == 5 }
-puts z
+# a = %w[ant bea cat].my_any? { |word| word.length >= 4 }
+# z = [nil, false, nil, false].my_any?
+# puts z
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
