@@ -33,51 +33,48 @@ module Enumerable
   end
 
   def my_all?(arg = nil)
-
-    if arg == nil
+    if arg.nil?
       my_each { |elem| return false unless yield(elem) } if block_given?
-      my_each { |elem| return false if elem.nil? || elem == false } 
-    else 
+      my_each { |elem| return false if elem.nil? || elem == false }
+    else
       if arg.is_a?(Class)
-      my_each { |elem| return false unless elem.is_a?(arg)}
+        my_each { |elem| return false unless elem.is_a?(arg) }
       elsif arg.is_a?(Regexp)
-      my_each { |elem| return false if elem.match?(arg)}
+        my_each { |elem| return false if elem.match?(arg) }
     end
   end
     true
   end
 
   def my_any?(*arg)
-
     if arg.empty?
       if block_given?
         my_each { |elem| return true if yield(elem) }
       else
-        my_each { |elem| return true unless elem.nil? || elem == false } 
+        my_each { |elem| return true unless elem.nil? || elem == false }
       end
-    else 
+    else
       if arg[0].is_a?(Class)
-        my_each { |elem| return true if elem.is_a?(arg[0])}
+        my_each { |elem| return true if elem.is_a?(arg[0]) }
       elsif arg[0].is_a?(Regexp)
-        my_each { |elem| return true if elem.match?(arg[0])}
+        my_each { |elem| return true if elem.match?(arg[0]) }
       end
     end
-      false
+    false
   end
 
   def my_none?(arg = nil)
-
-    if arg == nil
+    if arg.nil?
       my_each { |elem| return false if yield(elem) } if block_given?
-      my_each { |elem| return false unless elem.nil? || elem == false } 
+      my_each { |elem| return false unless elem.nil? || elem == false }
       true
-    else 
+    else
       if arg.is_a?(Class)
-      my_each { |elem| return false if elem.is_a?(arg)}
-      true
+        my_each { |elem| return false if elem.is_a?(arg) }
+        true
       elsif arg.is_a?(Regexp)
-      my_each { |elem| return false if elem.match?(arg)}
-      true
+        my_each { |elem| return false if elem.match?(arg) }
+        true
     end
   end
   end
@@ -134,19 +131,19 @@ end
 # p b
 
 # friends = %w[Sharon Leo Leila Brian Arun]
-animals = ["pig", "cow", "dog", "cat"]
+# animals = %w[pig cow dog cat]
 
 # x = friends.my_each { |friend| friend.upcase }
 # x = friends.my_none? { |friend| friend.length >= 4 }
-y = animals.my_any?(Regexp)
-c = animals.my_none?(Numeric)
-z = [].my_none?
-p c
+# y = animals.my_any?(Regexp)
+# c = animals.my_none?(Numeric)
+# z = [].my_none?
+# p c
 # hash = Hash.new
 # %w(cat dog wombat).my_each_with_index { |item, index|
 #   hash[item] = index }
 
-# puts hash  
+# puts hash
 
 # ary = [1, 2, 4, 2]
 # x=ary.my_count               #=> 4
