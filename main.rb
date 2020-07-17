@@ -3,25 +3,25 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
-    array = to_a
+    array = [Hash, Range].member?(self.class) ? to_a.flatten : self
     i = 0
     while i < array.length
       yield(array[i])
       i += 1
     end
-    array
+    self
   end
 
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
-    array = to_a
+    array = [Hash, Range].member?(self.class) ? to_a.flatten : self
     i = 0
     while i < array.length
       yield(array[i], i)
       i += 1
     end
-    array
+    self
   end
 
   def my_select
@@ -32,10 +32,18 @@ module Enumerable
     new_array
   end
 
-  def my_all?
-    return to_enum(:my_all?) unless block_given?
+  def my_all?(arg = nil)
 
-    my_each { |elem| return false if yield(elem) == false }
+    if arg == nil
+      my_each { |elem| return false unless yield(elem) } if block_given?
+      my_each { |elem| return false if elem.nil? || elem == false } 
+    else 
+      if arg.is_a?(Class)
+      my_each { |elem| return false unless elem.is_a?(arg)}
+      elsif arg.is_a?(Regexp)
+      my_each { |elem| return false if elem.match?(arg)}
+    end
+  end
     true
   end
 
@@ -47,6 +55,12 @@ module Enumerable
       else
         my_each { |elem| return true unless elem.nil? || elem == false } 
       end
+    else 
+      if arg[0].is_a?(Class)
+        my_each { |elem| return true if elem.is_a?(arg[0])}
+      elsif arg[0].is_a?(Regexp)
+        my_each { |elem| return true if elem.match?(arg[0])}
+      end
     end
       false
   end
@@ -54,11 +68,18 @@ module Enumerable
   def my_none?(arg = nil)
 
     if arg == nil
+      my_each { |elem| return false if yield(elem) } if block_given?
+      my_each { |elem| return false unless elem.nil? || elem == false } 
       true
-    elsif arg.is_a?
-      my_each { |elem| return false if yield(elem) } 
+    else 
+      if arg.is_a?(Class)
+      my_each { |elem| return false if elem.is_a?(arg)}
+      true
+      elsif arg.is_a?(Regexp)
+      my_each { |elem| return false if elem.match?(arg)}
+      true
     end
-    true
+  end
   end
 
   def my_count(num = nil)
@@ -113,13 +134,19 @@ end
 # p b
 
 # friends = %w[Sharon Leo Leila Brian Arun]
-animals = ["ant", "bear", "cat", 2]
+animals = ["pig", "cow", "dog", "cat"]
 
 # x = friends.my_each { |friend| friend.upcase }
 # x = friends.my_none? { |friend| friend.length >= 4 }
-y = animals.any?(Numeric)
-# z = [nil].my_none?
-p y
+y = animals.my_any?(Regexp)
+c = animals.my_none?(Numeric)
+z = [].my_none?
+p c
+# hash = Hash.new
+# %w(cat dog wombat).my_each_with_index { |item, index|
+#   hash[item] = index }
+
+# puts hash  
 
 # ary = [1, 2, 4, 2]
 # x=ary.my_count               #=> 4
@@ -146,6 +173,6 @@ p y
 #   memo.length > word.length ? memo : word
 # end
 # a = %w[ant bea cat].my_any? { |word| word.length >= 4 }
-# z = [nil, false, nil, false].my_any?
+# z = [nil, true, nil, false].my_any?
 # puts z
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
