@@ -105,24 +105,28 @@ module Enumerable
     new_array
   end
 
-  def my_inject(num = nil, symbol = nil)
-    if block_given?
-      acc = num
-      my_each { |i| acc = acc.nil? ? i : yield(acc, i) }
-      acc
-    elsif acc.nil?
-      !num.nil? && num.is_a?(Symbol) || num.is_a?(String)
-      my_each { |i| acc = acc.nil? ? i : acc.send(num, i) }
-    elsif (acc = num)
-      !num.symbol? && num.is_a?(Symbol) || num.is_a?(String)
-      my_each { |i| acc = acc.nil? ? i : acc.send(symbol, i) }
+  
+  def my_inject(value = nil, sym = nil)
+    array = is_a?(Array) ? self : to_a
+    symbol = value if value.is_a?(Symbol) || value.is_a?(String)
+    acc = value if value.is_a? Integer
+
+    if value.is_a?(Integer)
+      symbol = sym if sym.is_a?(Symbol) || sym.is_a?(String)
+    end
+
+    if symbol
+      array.my_each { |i| acc = acc ? acc.send(symbol, i) : i }
+    elsif block_given?
+      array.my_each { |i| acc = acc ? yield(acc, i) : i }
     end
     acc
   end
+  
 
-  def multiply_els
-    my_inject { |x, y| x * y }
-  end
+end
+def multiply_els(array)
+  array.my_inject(:*)
 end
 
 # fruits = w%[apple banana strawberry pineapple]
@@ -162,13 +166,21 @@ end
 # my_numbers = [5, 6, 7, 8]
 # x = my_numbers.my_inject(1) { |m, number| m * number }
 # y = (5..10).my_inject(:*)
-# w = (5..10).my_inject(1, :*)
-# z = (5..10).multiply_els { |product, num| product * num }
+# w = (5..10).my_inject(2, :*)
+# s=(5..10).my_inject(:+)    
+# z = (5..10).my_inject { |product, num| product * num }
 # h = multiply_els([2,4,5])
-# t = my_numbers.multiply_els
+# p y
+# p w
+# p s
+# p h
+# p z
+# # t = my_numbers.multiply_els
+# # p t
 # longest = %w[ cat sheep bear marshall ].my_inject do |memo, word|
 #   memo.length > word.length ? memo : word
 # end
+# p longest
 # a = %w[ant bea cat].my_any? { |word| word.length >= 4 }
 # z = [nil, true, nil, false].my_any?
 # puts z
