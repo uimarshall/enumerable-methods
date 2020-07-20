@@ -4,6 +4,7 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
+    array = to_a
     array = [Hash, Range].member?(self.class) ? to_a.flatten : self
     i = 0
     while i < array.length
@@ -34,14 +35,17 @@ module Enumerable
   end
 
   def my_all?(arg = nil)
-    if arg.nil?
-      my_each { |elem| return false unless yield(elem) } if block_given?
-      my_each { |elem| return false if elem.nil? || elem == false }
 
-    elsif arg.is_a?(Class)
-      my_each { |elem| return false unless elem.is_a?(arg) }
-    elsif arg.is_a?(Regexp)
-      my_each { |elem| return false if elem.match?(arg) }
+    if block_given?
+      my_each { |elem| return false unless yield(elem) }
+    elsif arg.nil?
+      my_each { |elem| return false if elem.nil? || elem == false }
+    elsif arg.is_a? Class
+      my_each { |elem| return false unless elem.class.ancestors.include? arg }
+    elsif arg.class == Regexp
+      my_each { |elem| return false unless elem.match?(arg) }
+    elsif arg
+      my_each { |elem| return false unless elem == arg }
     end
     true
   end
@@ -126,4 +130,12 @@ def multiply_els(array)
   array.my_inject(:*)
 end
 
+# w = [1, true, 99].my_all?
+# puts w
+# animals = ["dog", "door", "rod", "blade"]
+# x = animals.my_all?("dogs")
+# puts x
+useless_array = [2, 4, 2, 2, 4, 4, 2, 7, 1, 4, 4, 3, 5, 4, 1, 2, 7, 7, 4, 8, 4, 2, 1, 6, 2, 6, 6, 7, 8, 7, 6, 6, 1, 4, 7, 7, 2, 3, 6, 2, 7, 0, 7, 5, 0, 4, 6, 5, 4, 5, 4, 0, 0, 2, 7, 8, 3, 4, 0, 0, 2, 4, 3, 6, 5, 8, 4, 8, 4, 4, 3, 5, 5, 5, 4, 6, 6, 7, 1, 4, 7, 3, 4, 8, 8, 6, 7, 4, 8, 8, 5, 2, 0, 4, 2, 1, 6, 2, 7, 2]
+y = useless_array.my_all?(3)
+puts y
 # rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
