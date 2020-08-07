@@ -20,7 +20,7 @@
 ## About <a name = "about"></a>
 
 This project involvedd creating custom enumerable methods and testing built methods with Rspec.
-[screenshot](assets/rspec_test.png)
+![screenshot](assets/rspec_test.png)
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
