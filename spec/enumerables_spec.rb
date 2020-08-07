@@ -3,6 +3,8 @@ require_relative '../lib/enumerables'
 describe Enumerable do
   let(:my_array) { [*1..10] }
   let(:my_hash) { { 'name' => 'maryjane', 'school' => 'microverse' } }
+  let (:my_proc) {Proc.new {|x| x**2 }}
+  
 
   describe '#my_each' do
     it 'should return the array when a block is passed' do
@@ -101,6 +103,18 @@ describe Enumerable do
 
     it 'Count elements of array on given condition' do
       expect([20, 4, 3, 7].my_count { |x| x >= 7 }).to eq(2)
+    end
+  end
+  
+  describe "#my_map" do
+    it "returns the enumerator when no block is passed" do
+      expect(my_array.my_map).to be_a Enumerable
+    end
+    it "returns the same as the built in method when a block is passed" do
+      expect(my_array.my_map{ |x| x * 2 }).to eql(my_array.map{ |x| x * 2 })
+    end
+    it "returns the same as the built in method when a proc is passed as an argument" do
+      expect(my_array.my_map(&my_proc)).to eql(my_array.map(&my_proc))
     end
   end
 end
