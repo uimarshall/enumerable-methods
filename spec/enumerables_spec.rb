@@ -19,7 +19,7 @@ describe Enumerable do
     it 'should return Enumerable if no block is passed' do
       expect(range.my_each).to be_a Enumerable
     end
-    it 'should return Enumerable if no block is passed' do
+    it 'my_each should return same result as built in each when a hash is passed' do
       expect(hash.my_each { |x, y| puts "#{x} is #{y}" }).to eql(hash.each { |x, y| puts "#{x} is #{y}" })
     end
   end
