@@ -19,7 +19,8 @@
 
 ## About <a name = "about"></a>
 
-This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods.
+This project involvedd creating custom enumerable methods and testing built methods with Rspec.
+![screenshot](assets/rspec_test.png)
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
@@ -36,6 +37,7 @@ This project was completed under microverse remote software development curricul
 ## 🔧 Built with<a name = "with"></a>
 
 - Ruby
+- RSpec
 
 ## 🔴 Live Demo <a name = "ldl"></a>
 
@@ -59,6 +61,13 @@ This project was completed under microverse remote software development curricul
 - Github: [uimarshall](https://github.com/uimarshall)
 - Twitter: [uimarshall](https://twitter.com/uimarshall)
 - Linkedin: [Marshall Akpan](https://www.linkedin.com/in/marshall-akpan-19745526/)
+
+
+👤 **Maryjane Akpagbue**
+
+- Github: [Maryjanee](https://github.com/Maryjanee)
+- Twitter: [Maryjane Akpagbue](https://twitter.com/alfredmaryjane)
+- Linkedin: [Maryjane Akpagbue](https://www.linkedin.com/in/maryjane-akpagbue-1500b7173/)
 
 👤 **Ahmad Chata**
 
